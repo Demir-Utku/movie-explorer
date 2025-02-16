@@ -7,14 +7,12 @@
     {
       "path": "./tsconfig.app.json"
     },
-    {
-      "path": "./tsconfig.vitest.json"
-    }
   ],
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@movie/*": ["./src/features/movie/*"]
     }
   }
 }

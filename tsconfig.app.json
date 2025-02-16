@@ -24,7 +24,8 @@
 
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@movie/*": ["./src/features/movie/*"]
     }
   },
   "include": ["src", "env.d.ts"]

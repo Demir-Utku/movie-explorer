@@ -4,8 +4,6 @@ import reactHooks from 'eslint-plugin-react-hooks'
 import reactRefresh from 'eslint-plugin-react-refresh'
 import tseslint from 'typescript-eslint'
 import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended'
-import pluginVitest from '@vitest/eslint-plugin'
-import pluginPlaywright from 'eslint-plugin-playwright'
 import oxlint from 'eslint-plugin-oxlint'
 import pluginQuery from '@tanstack/eslint-plugin-query'
 import pluginRouter from '@tanstack/eslint-plugin-router'
@@ -38,15 +36,6 @@ export default tseslint.config(
       ...reactHooks.configs.recommended.rules,
       'react-refresh/only-export-components': ['warn', { allowConstantExport: true }]
     }
-  },
-  {
-    ...pluginVitest.configs.recommended,
-    files: ['src/**/__tests__/*']
-  },
-
-  {
-    ...pluginPlaywright.configs['flat/recommended'],
-    files: ['e2e/**/*.{test,spec}.{js,ts,jsx,tsx}']
   },
 
   oxlint.configs['flat/recommended'],

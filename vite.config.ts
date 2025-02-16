@@ -9,7 +9,8 @@ export default defineConfig({
   plugins: [TanStackRouterVite({ autoCodeSplitting: true }), react(), tailwindcss()],
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
+      '@movie': fileURLToPath(new URL('./src/features/movie', import.meta.url))
     }
   }
 })
