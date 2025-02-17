@@ -27,6 +27,8 @@ A React web application for exploring movies using the OMDB API. This applicatio
   - SASS for custom styling
 - **HTTP Client**: oFetch
 - **Build Tool**: Vite
+- **Testing**:
+  - E2E Testing: Playwright
 - **Code Quality**:
   - ESLint
   - Oxlint
@@ -35,18 +37,20 @@ A React web application for exploring movies using the OMDB API. This applicatio
 ## Project Structure
 
 ```
+e2e/
+├── movie-explorer.spec.ts  # End-to-end tests
 src/
-├── components/         # Reusable UI components
+├── components/             # Reusable UI components
 ├── features/
-│   └── movie/          # Movie feature related components and logic
-│       ├── api/        # API integration
-│       ├── components/ # Movie-specific components
-│       ├── hooks/      # Custom hooks for the movie feature
-├── hooks/              # Custom React hooks
-├── routes/             # Application routes
-├── store/              # Redux store configuration
-├── styles/             # Global styles
-└── utils/              # Utility functions
+│   └── movie/              # Movie feature related components and logic
+│       ├── api/            # API integration
+│       ├── components/     # Movie-specific components
+│       ├── hooks/          # Custom hooks for the movie feature
+├── hooks/                  # Custom React hooks
+├── routes/                 # Application routes
+├── store/                  # Redux store configuration
+├── styles/                 # Global styles
+└── utils/                  # Utility functions
 ```
 
 ## Project Setup
@@ -123,3 +127,4 @@ The project maintains code quality standards through:
 - TypeScript for type safety
 - ESLint and Oxlint for code linting
 - Prettier for code formatting
+- End-to-end tests with Playwright
