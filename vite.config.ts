@@ -12,5 +12,8 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url)),
       '@movie': fileURLToPath(new URL('./src/features/movie', import.meta.url))
     }
+  },
+  build: {
+    target: 'esnext'
   }
 })

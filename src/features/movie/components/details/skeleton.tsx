@@ -5,25 +5,25 @@ import { Skeleton } from '@/components/ui/skeleton'
 
 export function MovieDetailsSkeleton() {
   return (
-    <div className="max-w-7xl mx-auto">
-      <div className="mb-6">
+    <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 bg-white rounded-lg shadow-md">
+      <div className="mb-4">
         <Button variant="ghost" disabled>
           <ArrowLeft /> Back to Search
         </Button>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-[300px_1fr] gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-[350px_minmax(0,1fr)] gap-y-6 sm:gap-8 lg:gap-10">
         <Skeleton className="w-full h-[450px] rounded-lg" />
 
-        <div className="space-y-6">
+        <div className="space-y-8">
           <div>
-            <Skeleton className="h-8 w-2/3 mb-2" />
+            <Skeleton className="h-8 w-2/3 mb-3" />
             <Skeleton className="h-4 w-full" />
             <Skeleton className="h-4 w-full mt-2" />
             <Skeleton className="h-4 w-2/3 mt-2" />
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 lg:gap-x-12 gap-y-4">
             {Array.from({ length: 8 }).map((_, i) => (
               <div key={i}>
                 <Skeleton className="h-4 w-20 mb-1" />
