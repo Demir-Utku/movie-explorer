@@ -34,7 +34,7 @@ export function MovieTable({ data }: { data?: MovieSearchResponse }) {
 
   return (
     <div className="overflow-x-auto min-w-full">
-      <table className="ui-table table-fixed">
+      <table className="ui-table table-fixed" data-testid="movie-table">
         <thead className="bg-gray-100">
           <tr className="font-semibold text-gray-700 text-sm">
             {columns.map(column => (
@@ -51,6 +51,7 @@ export function MovieTable({ data }: { data?: MovieSearchResponse }) {
               <tr
                 key={movie.imdbID}
                 role="link"
+                data-testid={`movie-row-${movie.imdbID}`}
                 onMouseEnter={() => prefetchMovieDetailsQuery(movie.imdbID)}
                 onFocus={() => prefetchMovieDetailsQuery(movie.imdbID)}
                 onClick={() => navigate({ to: `/${movie.imdbID}` })}

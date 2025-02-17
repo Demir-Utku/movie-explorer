@@ -103,6 +103,19 @@ pnpm lint
 pnpm format
 ```
 
+### Run End-to-End Tests with [Playwright](https://playwright.dev)
+
+```sh
+# Install browsers for the first run
+pnpm exec playwright install
+
+# When testing on CI, must build the project first
+pnpm build
+
+# Runs the end-to-end tests
+pnpm test:e2e
+```
+
 ## Code Quality
 
 The project maintains code quality standards through:

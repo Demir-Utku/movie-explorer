@@ -68,6 +68,7 @@ export function MovieFilters() {
         value={searchValue}
         onChange={event => setSearchValue(event.target.value)}
         className="max-w-xs"
+        data-testid="movie-search-input"
       />
 
       <Select
