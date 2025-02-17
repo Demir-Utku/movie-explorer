@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, redirect } from '@tanstack/react-router'
 import { useSuspenseQuery, queryOptions } from '@tanstack/react-query'
 
 import { ErrorMessage } from '@/components/ui/error'
@@ -15,9 +15,15 @@ const movieQueryOptions = (movieId: string) =>
   })
 
 export const Route = createFileRoute('/$movieId')({
-  // tanstack router loader function
-  loader: ({ context: { queryClient }, params: { movieId } }) => {
-    return queryClient.ensureQueryData(movieQueryOptions(movieId))
+  // redirect back to home if movieId is not a valid imdb id
+  beforeLoad: async ({ context: { queryClient }, params: { movieId } }) => {
+    const movie = await queryClient.ensureQueryData(movieQueryOptions(movieId))
+
+    if (movie.Response === 'False') {
+      return redirect({ to: '/' })
+    }
+
+    return movie
   },
   errorComponent: MovieDetailsError,
   component: MovieInformation

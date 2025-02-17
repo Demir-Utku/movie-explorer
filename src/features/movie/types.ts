@@ -27,4 +27,5 @@ export interface MovieDetails {
   Poster: string
   imdbRating: string
   imdbID: string
+  Response: string
 }

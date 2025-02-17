@@ -51,6 +51,7 @@ export function MovieTable({ data }: { data?: MovieSearchResponse }) {
               <tr
                 key={movie.imdbID}
                 role="link"
+                className="cursor-pointer"
                 data-testid={`movie-row-${movie.imdbID}`}
                 onMouseEnter={() => prefetchMovieDetailsQuery(movie.imdbID)}
                 onFocus={() => prefetchMovieDetailsQuery(movie.imdbID)}
