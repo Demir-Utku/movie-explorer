@@ -1,6 +1,6 @@
-import { useEffect, startTransition } from 'react'
-import { useDebounceValue } from 'usehooks-ts'
+import { useEffect, startTransition, useState } from 'react'
 
+import { useDebounce } from '@/hooks/use-debounce'
 import { Input } from '@/components/ui/input'
 import { Select } from '@/components/ui/select'
 
@@ -26,7 +26,9 @@ export function MovieFilters() {
   const { year, type } = useAppSelector(state => state.movie)
 
   // Pokemon is the default search term
-  const [debouncedSearchValue, setSearchValue] = useDebounceValue('Pokemon', 500)
+  const [searchValue, setSearchValue] = useState('Pokemon')
+
+  const debouncedSearchValue = useDebounce(searchValue, 500)
 
   const dispatch = useAppDispatch()
 
@@ -63,7 +65,7 @@ export function MovieFilters() {
     <div className="flex flex-col md:flex-row gap-x-4 gap-y-2">
       <Input
         placeholder="Search movies..."
-        value={debouncedSearchValue}
+        value={searchValue}
         onChange={event => setSearchValue(event.target.value)}
         className="max-w-xs"
       />

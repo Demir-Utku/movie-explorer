@@ -1,9 +1,9 @@
 import type { RefObject, FC } from 'react'
 import { useState, useRef } from 'react'
-import { useOnClickOutside } from 'usehooks-ts'
 import { ChevronDown } from 'lucide-react'
 
 import { cn } from '@/utils/cn'
+import { useClickAway } from '@/hooks/use-click-away'
 
 interface Option {
   value: string
@@ -27,7 +27,7 @@ export const Select: FC<SelectProps> = ({
 
   const selectRef = useRef<HTMLDivElement>(null)
 
-  useOnClickOutside(selectRef as RefObject<HTMLDivElement>, () => {
+  useClickAway(selectRef as RefObject<HTMLDivElement>, () => {
     setIsOpen(false)
   })
 
