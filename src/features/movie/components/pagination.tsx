@@ -1,3 +1,6 @@
+import { startTransition } from 'react'
+
+import { cn } from '@/utils/cn'
 import {
   Pagination,
   PaginationContent,
@@ -103,28 +106,44 @@ export function MoviePagination({ currentPage, totalPages, onPageChange }: Movie
   }
 
   function handleClickPrevious() {
-    if (currentPage > 1) {
-      onPageChange(currentPage - 1)
-    }
+    startTransition(() => {
+      if (currentPage > 1) {
+        onPageChange(currentPage - 1)
+      }
+    })
   }
 
   function handleClickNext() {
-    if (currentPage < totalPages) {
-      onPageChange(currentPage + 1)
-    }
+    startTransition(() => {
+      if (currentPage < totalPages) {
+        onPageChange(currentPage + 1)
+      }
+    })
   }
 
   return (
-    <Pagination>
+    <Pagination className="animate-in fade-in duration-300">
       <PaginationContent>
         <PaginationItem>
-          <PaginationPrevious className="cursor-pointer" onClick={handleClickPrevious} />
+          <PaginationPrevious
+            className={cn(
+              'transition-colors duration-300',
+              currentPage === 1 ? 'opacity-50 pointer-events-none' : 'cursor-pointer'
+            )}
+            onClick={handleClickPrevious}
+          />
         </PaginationItem>
 
         {showPageNumbers && renderPageNumbers()}
 
         <PaginationItem>
-          <PaginationNext className="cursor-pointer" onClick={handleClickNext} />
+          <PaginationNext
+            className={cn(
+              'transition-colors duration-300',
+              currentPage === totalPages ? 'opacity-50 pointer-events-none' : 'cursor-pointer'
+            )}
+            onClick={handleClickNext}
+          />
         </PaginationItem>
       </PaginationContent>
     </Pagination>
