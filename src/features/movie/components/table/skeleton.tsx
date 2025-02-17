@@ -5,32 +5,30 @@ import { Skeleton } from '@/components/ui/skeleton'
 
 import { columns } from './columns'
 
+const columnWidths = {
+  Poster: 'w-16 min-w-[4rem]',
+  Title: 'w-[40%] min-w-[15rem] md:min-w-[20rem]',
+  Year: 'w-[15%] min-w-[6.25rem] md:min-w-[7.5rem]',
+  Type: 'w-[15%] min-w-[6.25rem] md:min-w-[7.5rem]',
+  imdbID: 'w-[20%] min-w-[7.5rem] md:min-w-[10rem]'
+}
+
 export function MovieTableSkeleton() {
   function renderBody(column: (typeof columns)[number]) {
     if (column.key === 'Poster') {
       return <Skeleton className="!w-12 aspect-[0.6] mx-auto rounded-md" />
     }
 
-    if (column.key === 'Title') {
-      return <Skeleton className="h-8 !w-full flex-1 rounded-md" />
-    }
-
-    return <Skeleton className="h-8 w-28 rounded-md" />
+    return <Skeleton className="h-8 w-full rounded-md" />
   }
 
   return (
     <div className="overflow-x-auto w-full">
-      <table className="ui-table">
+      <table className="ui-table table-fixed">
         <thead className="bg-gray-100">
           <tr className="font-semibold text-gray-700 text-sm">
             {columns.map(column => (
-              <th
-                key={column.key}
-                className={cn([
-                  'px-3 py-2 min-w-28 max-w-96',
-                  { '!min-w-16 w-16': column.key === 'Poster' }
-                ])}
-              >
+              <th key={column.key} className={cn('px-3 py-2', columnWidths[column.key])}>
                 {column.label}
               </th>
             ))}
@@ -44,11 +42,9 @@ export function MovieTableSkeleton() {
                 <td
                   key={column.key}
                   className={cn([
-                    'px-3 py-2 min-w-28 max-w-96',
-                    {
-                      '!min-w-16 !w-16': column.key === 'Poster',
-                      'capitalize': column.key === 'Type'
-                    }
+                    'px-3 py-2',
+                    columnWidths[column.key],
+                    { capitalize: column.key === 'Type' }
                   ])}
                 >
                   {renderBody(column)}

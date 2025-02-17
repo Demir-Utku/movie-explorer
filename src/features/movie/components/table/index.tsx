@@ -10,6 +10,14 @@ import { columns } from './columns'
 import { getMovieById } from '../../api/omdb'
 import type { MovieSearchResponse } from '../../types'
 
+const columnWidths = {
+  Poster: 'w-16 min-w-[4rem]',
+  Title: 'w-[40%] min-w-[15rem] md:min-w-[20rem]',
+  Year: 'w-[15%] min-w-[6.25rem] md:min-w-[7.5rem]',
+  Type: 'w-[15%] min-w-[6.25rem] md:min-w-[7.5rem]',
+  imdbID: 'w-[20%] min-w-[7.5rem] md:min-w-[10rem]'
+}
+
 export function MovieTable({ data }: { data?: MovieSearchResponse }) {
   const queryClient = useQueryClient()
 
@@ -19,23 +27,18 @@ export function MovieTable({ data }: { data?: MovieSearchResponse }) {
     await queryClient.prefetchQuery({
       queryKey: ['movies', movieId],
       queryFn: () => getMovieById(movieId),
-      staleTime: 6 * 1000 // only prefetch if older than 6 seconds
+      // Movie details are unlikely to change, so we can cache them for a long time
+      staleTime: 24 * 60 * 60 * 1000 // 24 hours in milliseconds
     })
   }
 
   return (
     <div className="overflow-x-auto min-w-full">
-      <table className="ui-table">
+      <table className="ui-table table-fixed">
         <thead className="bg-gray-100">
           <tr className="font-semibold text-gray-700 text-sm">
             {columns.map(column => (
-              <th
-                key={column.key}
-                className={cn([
-                  'px-3 py-2 min-w-28 max-w-96',
-                  { '!min-w-16 w-16': column.key === 'Poster' }
-                ])}
-              >
+              <th key={column.key} className={cn(['px-3 py-2', columnWidths[column.key]])}>
                 {column.label}
               </th>
             ))}
@@ -56,11 +59,9 @@ export function MovieTable({ data }: { data?: MovieSearchResponse }) {
                   <td
                     key={column.key}
                     className={cn([
-                      'px-3 py-2 min-w-28 max-w-96',
-                      {
-                        '!min-w-16 w-16': column.key === 'Poster',
-                        'capitalize': column.key === 'Type'
-                      }
+                      'px-3 py-2',
+                      columnWidths[column.key],
+                      { capitalize: column.key === 'Type' }
                     ])}
                   >
                     {column.key === 'Poster' ? (
@@ -71,7 +72,7 @@ export function MovieTable({ data }: { data?: MovieSearchResponse }) {
                             : movie[column.key]
                         }
                         alt={movie.Title}
-                        className="w-12 aspect-[0.6] object-cover mx-auto"
+                        className="w-full aspect-[0.6] object-cover mx-auto !max-w-14"
                         loading="eager"
                         fetchPriority="high"
                       />
