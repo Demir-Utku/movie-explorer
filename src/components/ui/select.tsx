@@ -3,6 +3,8 @@ import { useState, useRef } from 'react'
 import { useOnClickOutside } from 'usehooks-ts'
 import { ChevronDown } from 'lucide-react'
 
+import { cn } from '@/utils/cn'
+
 interface Option {
   value: string
   label: string
@@ -81,7 +83,12 @@ export const Select: FC<SelectProps> = ({
           {options.map(option => (
             <li
               key={option.value}
-              className="p-2 hover:bg-gray-100 cursor-pointer text-gray-700"
+              className={cn([
+                'p-2 hover:bg-gray-100 cursor-pointer text-gray-700',
+                {
+                  'bg-gray-200 hover:bg-unset': option.value === value
+                }
+              ])}
               onClick={() => handleSelect(option)}
             >
               {option.label}
