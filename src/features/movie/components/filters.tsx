@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, startTransition } from 'react'
 import { useDebounceValue } from 'usehooks-ts'
 
 import { Input } from '@/components/ui/input'
@@ -31,13 +31,16 @@ export function MovieFilters() {
   const dispatch = useAppDispatch()
 
   useEffect(() => {
-    dispatch(
-      setFilters({
-        search: debouncedSearchValue,
-        year,
-        type
-      })
-    )
+    // startTransition is used so that UI can remain responsive if the filtering leads to bigger UI updates
+    startTransition(() => {
+      dispatch(
+        setFilters({
+          search: debouncedSearchValue,
+          year,
+          type
+        })
+      )
+    })
   }, [debouncedSearchValue, year, type, dispatch])
 
   function handleTypeChange(value: string) {

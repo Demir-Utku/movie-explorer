@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { startTransition, useEffect } from 'react'
 import { useQuery, keepPreviousData } from '@tanstack/react-query'
 
 import { ErrorMessage } from '@/components/ui/error'
@@ -20,13 +20,18 @@ export function MovieList() {
     queryKey: ['movies', search, year, type, page],
     queryFn: () => getMovies({ search, year, type, page }),
     enabled: search.length > 0,
-    placeholderData: keepPreviousData
+    placeholderData: keepPreviousData,
+    staleTime: 1000 * 60 * 5, // 5 minutes
+    gcTime: 1000 * 60 * 10 // 10 minutes
   })
 
   const totalPages = data?.totalResults ? Math.ceil(Number.parseInt(data.totalResults) / 10) : 0
 
-  function handlePageChange(page: number) {
-    dispatch(setPage(page))
+  function handlePageChange(newPage: number) {
+    startTransition(() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+      dispatch(setPage(newPage))
+    })
   }
 
   useEffect(() => {
